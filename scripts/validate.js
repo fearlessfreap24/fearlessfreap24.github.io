@@ -3,16 +3,18 @@ var money = 0;
 var goodmsgclass = "";
 var goodmsgaddlcost = "";
 
+var formItems = {fname:"", lname:"", idnum:"", phone:"", email:"", ccnum:"", date:"", classOpen: false, classNP: false, class25knnp:false, class50kam:false, class35knp:false, class15kam:false, stall:false, rv:false, ccmonth:"", ccyear:"",ccVisa:false, ccMC:false, ccDisc:false}
+
 function validate() {
     //alert("function validate");
     var reg = document.forms["reg"];
     var valid = true;
-    var myname = reg["fname"].value;
-    var mylname = reg["lname"].value;
-    var myphone = reg["phone"].value;
-    var myid = reg["id"].value;
-    var myemail = reg["email"].value;
-    var myccnum = reg["ccnum"].value;
+    formItems["fname"] = reg["fname"].value;
+    formItems["lname"] = reg["lname"].value;
+    formItems["phone"] = reg["phone"].value;
+    formItems["idnum"] = reg["id"].value;
+    formItems["email"] = reg["email"].value;
+    formItems["ccnum"] = reg["ccnum"].value;
     var mydate = reg["date"];
     var myclass = reg["class"];
     var mystall = reg["stall"];
@@ -23,14 +25,14 @@ function validate() {
 
     //alert("getdate = " + getdate(mydate));
 
-    if (!chkfname(myname)) {
+    if (!chkfname(formItems["fname"])) {
         reg["fname"].style.backgroundColor = "pink";
         valid = false;
     }
-    if (!chkfname(mylname)) valid = false;
-    if (!chkphone(myphone)) valid = false;
-    if (!chkid(myid)) valid = false;
-    if (!chkemail(myemail)) valid = false;
+    if (!chkfname(formItems["lname"])) valid = false;
+    if (!chkphone(formItems["phone"])) valid = false;
+    if (!chkid(formItems["idnum"])) valid = false;
+    if (!chkemail(formItems["email"])) valid = false;
 
     if (!chkclass(myclass)) valid = false;
     else money += addclass(myclass);
@@ -44,13 +46,12 @@ function validate() {
         money += 35;
     }
 
-    if (!chkccnum(myccnum)) valid = false;
+    if (!chkccnum(formItems["ccnum"])) valid = false;
     if (!chkcardtype(mycctype)) valid = false;
     if (!chkccdate(myccmonth, myccyear)){
         msg += "Credit card date is invalid.\n\n";
         valid = false;
     }
-
     
     if (valid) {
         //var thedate = mydate.selected.innerHTML;
@@ -173,8 +174,7 @@ function addclass(thisclass){
 }
 
 function getdate(thisdate){
-    var retdate = thisdate.options[thisdate.selectedIndex].text;
-    return retdate;
+    return thisdate.options[thisdate.selectedIndex].text;
 }
 
 function chkccdate(ccm, ccy){
@@ -206,4 +206,9 @@ function chkcardtype(cctype){
         return false;
     }
     return true;
+}
+
+function loadItems(){
+
+
 }
