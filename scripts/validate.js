@@ -3,7 +3,7 @@ var money = 0;
 var goodmsgclass = "";
 var goodmsgaddlcost = "";
 
-var formItems = {fname:"", lname:"", idnum:"", phone:"", email:"", ccnum:"", date:"", classOpen: false, classNP: false, class25knnp:false, class50kam:false, class35knp:false, class15kam:false, stall:false, rv:false, ccmonth:"", ccyear:"",ccVisa:false, ccMC:false, ccDisc:false}
+var formItems = {fname:"", lname:"", idnum:"", phone:"", email:"", ccnum:"", date:0, classOpen: false, classNP: false, class25knnp:false, class50kam:false, class35knp:false, class15kam:false, stall:false, rv:false, ccmonth:0, ccyear:0,ccVisa:false, ccMC:false, ccDisc:false}
 
 function validate() {
     //alert("function validate");
@@ -15,13 +15,13 @@ function validate() {
     formItems["idnum"] = reg["id"].value;
     formItems["email"] = reg["email"].value;
     formItems["ccnum"] = reg["ccnum"].value;
-    var mydate = reg["date"];
+    formItems["date"] = reg["date"].selectedIndex;
     var myclass = reg["class"];
-    var mystall = reg["stall"];
-    var myrv = reg["rv"];
+    formItems["stall"] = reg["stall"].value;
+    formItems["rv"] = reg["rv"];
     var mycctype = reg["cctype"];
-    var myccmonth = reg["ccmonth"];
-    var myccyear = reg["ccyear"];
+    formItems["ccmonth"] = reg["ccmonth"].selectedIndex;
+    formItems["ccyear"] = reg["ccyear"].selectedIndex;
 
     //alert("getdate = " + getdate(mydate));
 
