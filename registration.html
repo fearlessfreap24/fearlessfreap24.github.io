@@ -4,7 +4,7 @@
 <title>Main Page - Dylan Perez CITE30363 Lab 1</title>
 <meta charset="UTF-8" />
 <link rel="stylesheet" type="text/css" href="css/style.css" />
-<script type="text/javascript" src="scripts/validate.js"></script>
+<script src="scripts/validate.js"></script>
 </head>
 <body>
 <header>
@@ -21,11 +21,11 @@
     <section>
         <h2>REGISTER FOR EVENTS</h2>
         <hr />
-        <!-- <form id="reg" method="get" action="http://www.tcu.edu" onsubmit="return validate()"> -->
-        <form id="reg" method="get" action="" onsubmit="return validate()">
+        <form id="reg" method="get" action="http://www.tcu.edu" onsubmit="return validate()">
+        <!-- <form id="reg" method="get" action="" onsubmit="return validate()"> -->
             <table>
                 <tr>
-                    <td><label>First Name<span class="asterisk">*</span><br /><input type="text" name="fname" /></label></td>
+                    <td><label>First Name<span class="asterisk">*</span><br /><input type="text" name="fname" onclick="tb(0)"/></label></td>
                     <td><label>Last Name<span class="asterisk">*</span><br /><input type="text" name="lname" /></label></td>
                 </tr>
                 <tr>
@@ -44,13 +44,13 @@
                             <option value="3242018">Mar 24, 2018</option>
                         </select></label>
                     </td>
-                    <td><label>Class Entry<span class="asterisk">*</span> (Select no more than 3)<br />
-                        <input type="checkbox" name="class" value="open" /> Open - $300<br /></label>
-                        <label><input type="checkbox" name="class" value="nonpro" /> Non-Pro - $300<br /></label>
-                        <label><input type="checkbox" name="class" value="25knnp" /> 25K NNP - $250<br /></label>
-                        <label><input type="checkbox" name="class" value="50kam" /> 50K Amateur - $250<br /></label>
-                        <label><input type="checkbox" name="class" value="35knp" /> 35K NP - $150<br /></label>
-                        <label><input type="checkbox" name="class" value="15kam" /> 15K Amateur - $150</label></td>
+                    <td>Class Entry<span class="asterisk">*</span> (Select no more than 3)<br />
+                        <label id="classOpen"><input type="checkbox" name="class" value="open" /> Open - $300<br /></label>
+                        <label id="classNP"><input type="checkbox" name="class" value="nonpro" /> Non-Pro - $300<br /></label>
+                        <label id="class25knnp"><input type="checkbox" name="class" value="25knnp" /> 25K NNP - $250<br /></label>
+                        <label id="class50kam"><input type="checkbox" name="class" value="50kam" /> 50K Amateur - $250<br /></label>
+                        <label id="class35knp"><input type="checkbox" name="class" value="35knp" /> 35K NP - $150<br /></label>
+                        <label id="class15kam"><input type="checkbox" name="class" value="15kam" /> 15K Amateur - $150</label></td>
                 </tr>
                 <tr>
                     <td colspan="2"><hr />Additional Fees<br /></td>
@@ -66,10 +66,10 @@
                     <td colspan="2"><label>Credit Card Number<span class="asterisk">*</span><br /><input type="text" name="ccnum" size="30" /></label></td>
                 </tr>
                 <tr>
-                    <td><label>Card Type<span class="asterisk">*</span><br />
-                        Visa <input type="radio" name="cctype" value="visa" /></label>
-                        <label>MC <input type="radio" name="cctype" value="mc" /></label>
-                        <label>Discover <input type="radio" name="cctype" value="disc" /></label></td>
+                    <td>Card Type<span class="asterisk">*</span><br />
+                        <label id="ccVisa">Visa <input type="radio" name="cctype" value="visa" /></label>
+                        <label id="ccMC">MC <input type="radio" name="cctype" value="mc" /></label>
+                        <label id="ccDisc">Discover <input type="radio" name="cctype" value="disc" /></label></td>
                     <td><label>Exp Date<span class="asterisk">*</span><br />
                         <select name="ccmonth" size="1">
                             <option value="01">01 - Jan</option>
@@ -100,9 +100,10 @@
             </table>
         </form>
         
-        <script type="text/javascript">
+        <script>
             document.forms["reg"] = validate;
         </script>
+
         
     </section>
 </main>

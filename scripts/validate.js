@@ -29,34 +29,49 @@ function validate() {
     formItems["ccmonth"] = reg[18].selectedIndex;
     formItems["ccyear"] = reg[19].selectedIndex;
 
-    if (!chkfname(formItems["fname"])){
-        formItems["fname"] = "";
-        reg[0].style.backgroundColor = "pink";
+    if (!chkccdate(formItems["ccmonth"], formItems["ccyear"])){
+        formItems["ccmonth"] = 0;
+        formItems["ccyear"] = 0;
         valid = false;
+        reg[18].focus();
+        reg[18].style.backgroundColor = "red";
+        reg[19].style.backgroundColor = "red";
     }
-    // alert("post chkname");
-    if (!chkfname(formItems["lname"])){
-        formItems["lname"] = "";
+    else {
+        reg[18].style.backgroundColor = "#d6dbdf";
+        reg[19].style.backgroundColor = "#d6dbdf";
+    }
+    // alert("post chkccdate");
+    if (!chkcardtype(formItems["ccVisa"], formItems["ccMC"], formItems["ccDisc"])){
+        formItems["ccVisa"].checked = false;
+        formItems["ccMC"].checked = false;
+        formItems["ccDisc"].checked = false;
         valid = false;
+        reg[15].focus();
+        document.getElementById("ccVisa").style.color = "red";
+        document.getElementById("ccMC").style.color = "red";
+        document.getElementById("ccDisc").style.color = "red";
     }
-    // alert("post chklname");
-    if (!chkid(formItems["idnum"])){
-        formItems["idnum"] = "";
+    else {
+
+        document.getElementById("ccVisa").style.color = "#f1c40f";
+        document.getElementById("ccMC").style.color = "#f1c40f";
+        document.getElementById("ccDisc").style.color = "#f1c40f";
+    }
+    // alert("post chkcctype");
+    if (!chkccnum(formItems["ccnum"])){
+        formItems["ccnum"] = "";
         valid = false;
+        reg[14].focus();
+        reg[14].style.backgroundColor = "red";
     }
-    // alert("post chkid");
-    if (!chkphone(formItems["phone"])){
-        formItems["phone"] = "";
-        valid = false;
+    else {
+        reg[14].style.backgroundColor = "#d6dbdf";
     }
-    // alert("post chkphone");
-    if (!chkemail(formItems["email"])){
-        formItems["email"] = "";
-        valid = false;
-    }
-    // alert("post chkmail");
-    regdate = getdate(formItems["date"]);
-    // alert("date = " + regdate);
+    // alert("post ccnum");
+    if (formItems["stall"]) money += 30;
+    if (formItems["rv"]) money += 35;
+    // alert("money now = " + money);
     if (!chkclass(formItems["classOpen"],formItems["classNP"],formItems["class25knnp"],formItems["class50kam"],formItems["class35knp"],formItems["class15kam"])){
 
         formItems["classOpen"] = false;
@@ -66,34 +81,87 @@ function validate() {
         formItems["class35knp"] = false;
         formItems["class15kam"] = false;
         valid = false;
-    }
-    // alert("money = " + money);
-    if (formItems["stall"]) money += 30;
-    if (formItems["rv"]) money += 35;
-    // alert("money now = " + money);
-    if (!chkccnum(formItems["ccnum"])){
-        formItems["ccnum"] = "";
-        valid = false;
-    }
-    // alert("post ccnum");
-    if (!chkcardtype(formItems["ccVisa"], formItems["ccMC"], formItems["ccDisc"])){
-        formItems["ccVisa"].checked = false;
-        formItems["ccMC"].checked = false;
-        formItems["ccDisc"].checked = false;
-        valid = false;
-    }
-    // alert("post chkcctype");
-    if (!chkccdate(formItems["ccmonth"], formItems["ccyear"])){
-        formItems["ccmonth"] = 0;
-        formItems["ccyear"] = 0;
-        valid = false;
-    }
-    // alert("post chkccdate");
-    if (!valid){
-        alert(msg);
+        reg[6].focus();
+        // alert(document.getElementById("classOpen").innerText);
+        document.getElementById("classOpen").style.color = "red";
+        document.getElementById("classNP").style.color = "red";
+        document.getElementById("class25knnp").style.color = "red";
+        document.getElementById("class50kam").style.color = "red";
+        document.getElementById("class35knp").style.color = "red";
+        document.getElementById("class15kam").style.color = "red";
     }
     else {
-        var msg1 = formItems["fname"] + " " + formItems["lname"] + " has register for event day " + regdate + " in events:\n" + goodmsgclass;
+        document.getElementById("classOpen").style.color = "#f1c40f";
+        document.getElementById("classNP").style.color = "#f1c40f";
+        document.getElementById("class25knnp").style.color = "#f1c40f";
+        document.getElementById("class50kam").style.color = "#f1c40f";
+        document.getElementById("class35knp").style.color = "#f1c40f";
+        document.getElementById("class15kam").style.color = "#f1c40f";
+
+    }
+    // alert("money = " + money);
+    regdate = getdate(formItems["date"]);
+    // alert("date = " + regdate);
+    if (!chkemail(formItems["email"])){
+        formItems["email"] = "";
+        valid = false;
+        reg[4].focus();
+        reg[4].style.backgroundColor = "red";
+    }
+    else {
+        reg[4].style.backgroundColor = "#d6dbdf";
+    }
+    // alert("post chkmail");
+    if (!chkphone(formItems["phone"])){
+        formItems["phone"] = "";
+        valid = false;
+        reg[3].focus();
+        reg[3].style.backgroundColor = "red";
+    }
+    else {
+        reg[3].style.backgroundColor = "#d6dbdf";
+    }
+    // alert("post chkphone");
+    if (!chkid(formItems["idnum"])){
+        formItems["idnum"] = "";
+        valid = false;
+        reg[2].focus();
+        reg[2].style.backgroundColor = "red";
+    }
+    else {
+        reg[2].style.backgroundColor = "#d6dbdf";
+    }
+    // alert("post chkid");
+    if (!chkfname(formItems["lname"])){
+        formItems["lname"] = "";
+        valid = false;
+        reg[1].focus();
+        reg[1].style.backgroundColor = "red";
+    }
+    else {
+        reg[1].style.backgroundColor = "#d6dbdf";
+    }
+
+    // alert("post chklname");
+    if (!chkfname(formItems["fname"])){
+        formItems["fname"] = "";
+        reg[0].focus();
+        reg[0].style.backgroundColor = "red";
+        valid = false;
+    }
+    else {
+        reg[0].style.backgroundColor = "#d6dbdf";
+    }
+    // alert("post chkname");
+
+    if (!valid){
+        alert(msg);
+        msg = "";
+        goodmsgclass = "";
+        money = 0;
+    }
+    else {
+        var msg1 = formItems["fname"] + " " + formItems["lname"] + " has registered for event day " + regdate + " in events:\n" + goodmsgclass;
         var msg2 = "\nAdditional Items:\n"
         var msg3 = "";
         if (formItems["stall"]) msg3 += "\tStall Rental\n";
@@ -111,7 +179,7 @@ function chkfname(fname) {
     // alert("fnamegood = " + fnamegood);
     if (fnamegood == 0) return true;
     else {
-        msg += "The name " + fname + " is not correct format.\n\n";
+        msg = "The name " + fname + " is not correct format.\n\n" + msg;
         //fname.style.backgroundColor = pink;
         return false;
     }
@@ -122,7 +190,7 @@ function chkphone(phonenum) {
     // alert("goodphone = " + goodphone);
     if (goodphone == 0) return true;
     else {
-        msg += "The phone number " + phonenum + " is not formatted correctly.\n\n";
+        msg = "The phone number " + phonenum + " is not formatted correctly.\n\n" + msg;
         return false;
     }
 }
@@ -133,7 +201,7 @@ function chkid(id){
     // alert("goodid " + goodid);
     if (goodid == 0) return true;
     else {
-        msg += "NCHA ID # " + id + " is invaild\n\n";
+        msg = "NCHA ID # " + id + " is invaild\n\n" + msg;
         return false;
     }
 }
@@ -144,7 +212,7 @@ function chkemail(email){
     // alert("goodemail " + goodemail);
     if (goodemail == 0) return true;
     else {
-        msg += "The email address " + email + " is not valid\n\n";
+        msg = "The email address " + email + " is not valid\n\n" + msg;
         return false;
     }
 }
@@ -155,7 +223,7 @@ function chkccnum(ccnum){
     // alert("goodccnum " + goodccnum);
     if (goodccnum == 0) return true;
     else {
-        msg += "Credit card # " + ccnum + " is invalid\n\n";
+        msg = "Credit card # " + ccnum + " is invalid\n\n" + msg;
         return false;
     }
 }
@@ -196,12 +264,12 @@ function chkclass(class1, class2,class3,class4,class5,class6){
     // alert("class checks " + count);
 
     if (count == 0) {
-        msg += "There were no classes selected\n\n";
+        msg = "There were no classes selected\n\n" + msg;
         money = 0;
         return false;
     }
     if (count > 3) {
-        msg += "Too many classes were selected\n\n";
+        msg = "Too many classes were selected\n\n" + msg;
         money = 0;
         return false;
     }
@@ -221,7 +289,7 @@ function chkccdate(ccm, ccy){
     // alert(year + " " + month + " " + cyear + " " + ccm + "\n");
 
     if (ccm < month && cyear == year) {
-        msg += "Credit card date is invalid.\n";
+        msg = "Credit card date is invalid.\n\n" + msg;
         return false;
     }
 
@@ -232,7 +300,7 @@ function chkccdate(ccm, ccy){
 function chkcardtype(cv, cm, cd){
     if (cv || cm || cd) return true;
     else {
-        msg += "Credit card type was not selected\n\n";
+        msg = "Credit card type was not selected\n\n" + msg;
         return false;
     }
 }
