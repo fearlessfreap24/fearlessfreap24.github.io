@@ -1,71 +1,114 @@
 var msg = "";
 var money = 0;
 var goodmsgclass = "";
-var goodmsgaddlcost = "";
 
-var formItems = {fname:"", lname:"", idnum:"", phone:"", email:"", ccnum:"", date:0, classOpen: false, classNP: false, class25knnp:false, class50kam:false, class35knp:false, class15kam:false, stall:false, rv:false, ccmonth:0, ccyear:0,ccVisa:false, ccMC:false, ccDisc:false}
+var formItems = {fname:"", lname:"", idnum:"", phone:"", email:"", date:0, classOpen: false, classNP: false, class25knnp:false, class50kam:false, class35knp:false, class15kam:false, stall:false, rv:false, ccnum:"", ccVisa:false, ccMC:false, ccDisc:false, ccmonth:0, ccyear:0};
 
 function validate() {
-    //alert("function validate");
+    // alert("function validate");
     var reg = document.forms["reg"];
     var valid = true;
-    formItems["fname"] = reg["fname"].value;
-    formItems["lname"] = reg["lname"].value;
-    formItems["phone"] = reg["phone"].value;
-    formItems["idnum"] = reg["id"].value;
-    formItems["email"] = reg["email"].value;
-    formItems["ccnum"] = reg["ccnum"].value;
-    formItems["date"] = reg["date"].selectedIndex;
-    var myclass = reg["class"];
-    formItems["stall"] = reg["stall"].value;
-    formItems["rv"] = reg["rv"];
-    var mycctype = reg["cctype"];
-    formItems["ccmonth"] = reg["ccmonth"].selectedIndex;
-    formItems["ccyear"] = reg["ccyear"].selectedIndex;
+    formItems["fname"] = reg[0].value;
+    formItems["lname"] = reg[1].value;
+    formItems["idnum"] = reg[2].value;
+    formItems["phone"] = reg[3].value;
+    formItems["email"] = reg[4].value;
+    formItems["date"] = reg[5].selectedIndex;
+    formItems["classOpen"] = reg[6].checked;
+    formItems["classNP"] = reg[7].checked;
+    formItems["class25knnp"] = reg[8].checked;
+    formItems["class50kam"] = reg[9].checked;
+    formItems["class35knp"] = reg[10].checked;
+    formItems["class15kam"] = reg[11].checked;
+    formItems["stall"] = reg[12].checked;
+    formItems["rv"] = reg[13].checked;
+    formItems["ccnum"] = reg[14].value;
+    formItems["ccVisa"] = reg[15].checked;
+    formItems["ccMC"] = reg[16].checked;
+    formItems["ccDisc"] = reg[17].checked;
+    formItems["ccmonth"] = reg[18].selectedIndex;
+    formItems["ccyear"] = reg[19].selectedIndex;
 
-    //alert("getdate = " + getdate(mydate));
-
-    if (!chkfname(formItems["fname"])) {
-        reg["fname"].style.backgroundColor = "pink";
+    if (!chkfname(formItems["fname"])){
+        formItems["fname"] = "";
+        reg[0].style.backgroundColor = "pink";
         valid = false;
     }
-    if (!chkfname(formItems["lname"])) valid = false;
-    if (!chkphone(formItems["phone"])) valid = false;
-    if (!chkid(formItems["idnum"])) valid = false;
-    if (!chkemail(formItems["email"])) valid = false;
-
-    if (!chkclass(myclass)) valid = false;
-    else money += addclass(myclass);
-
-    if (mystall.checked) {
-        goodmsgaddlcost += "\t- Stall Rental\n";
-        money += 30;
-    }
-    if (myrv.checked) {
-        goodmsgaddlcost += "\t- RV Hookup\n";
-        money += 35;
-    }
-
-    if (!chkccnum(formItems["ccnum"])) valid = false;
-    if (!chkcardtype(mycctype)) valid = false;
-    if (!chkccdate(myccmonth, myccyear)){
-        msg += "Credit card date is invalid.\n\n";
+    // alert("post chkname");
+    if (!chkfname(formItems["lname"])){
+        formItems["lname"] = "";
         valid = false;
     }
-    
-    if (valid) {
-        //var thedate = mydate.selected.innerHTML;
-        alert(myname + " " + mylname + " has registered for event date: " + getdate(mydate) + "\nclasses:\n" + goodmsgclass + "\nAdditional:\n" + goodmsgaddlcost + "\nTotal Cost = $" + money);
-        return valid;
+    // alert("post chklname");
+    if (!chkid(formItems["idnum"])){
+        formItems["idnum"] = "";
+        valid = false;
     }
-    else alert(msg)
+    // alert("post chkid");
+    if (!chkphone(formItems["phone"])){
+        formItems["phone"] = "";
+        valid = false;
+    }
+    // alert("post chkphone");
+    if (!chkemail(formItems["email"])){
+        formItems["email"] = "";
+        valid = false;
+    }
+    // alert("post chkmail");
+    regdate = getdate(formItems["date"]);
+    // alert("date = " + regdate);
+    if (!chkclass(formItems["classOpen"],formItems["classNP"],formItems["class25knnp"],formItems["class50kam"],formItems["class35knp"],formItems["class15kam"])){
+
+        formItems["classOpen"] = false;
+        formItems["classNP"] = false;
+        formItems["class25knnp"] = false;
+        formItems["class50kam"] = false;
+        formItems["class35knp"] = false;
+        formItems["class15kam"] = false;
+        valid = false;
+    }
+    // alert("money = " + money);
+    if (formItems["stall"]) money += 30;
+    if (formItems["rv"]) money += 35;
+    // alert("money now = " + money);
+    if (!chkccnum(formItems["ccnum"])){
+        formItems["ccnum"] = "";
+        valid = false;
+    }
+    // alert("post ccnum");
+    if (!chkcardtype(formItems["ccVisa"], formItems["ccMC"], formItems["ccDisc"])){
+        formItems["ccVisa"].checked = false;
+        formItems["ccMC"].checked = false;
+        formItems["ccDisc"].checked = false;
+        valid = false;
+    }
+    // alert("post chkcctype");
+    if (!chkccdate(formItems["ccmonth"], formItems["ccyear"])){
+        formItems["ccmonth"] = 0;
+        formItems["ccyear"] = 0;
+        valid = false;
+    }
+    // alert("post chkccdate");
+    if (!valid){
+        alert(msg);
+    }
+    else {
+        var msg1 = formItems["fname"] + " " + formItems["lname"] + " has register for event day " + regdate + " in events:\n" + goodmsgclass;
+        var msg2 = "\nAdditional Items:\n"
+        var msg3 = "";
+        if (formItems["stall"]) msg3 += "\tStall Rental\n";
+        if (formItems["rv"]) msg3 += "\tRV Hookup\n";
+        var msg4 = "\nTotal Cost: $" + money + "\n";
+        alert(msg1+msg2+msg3+msg4);
+    }
+
     return valid;
 }
 
 function chkfname(fname) {
-    //alert("checkfname function " + fname);
+    // alert("checkfname function " + fname);
     var fnamegood = fname.search(/^[A-Z][a-z]+$/);
-    //alert("fnamegood = " + fnamegood);
+    // alert("fnamegood = " + fnamegood);
     if (fnamegood == 0) return true;
     else {
         msg += "The name " + fname + " is not correct format.\n\n";
@@ -76,7 +119,7 @@ function chkfname(fname) {
 
 function chkphone(phonenum) {
     var goodphone = phonenum.search(/^\d{3}-\d{3}-\d{4}$/);
-    //alert("goodphone = " + goodphone);
+    // alert("goodphone = " + goodphone);
     if (goodphone == 0) return true;
     else {
         msg += "The phone number " + phonenum + " is not formatted correctly.\n\n";
@@ -85,9 +128,9 @@ function chkphone(phonenum) {
 }
 
 function chkid(id){
-    //alert("function checkid " + id);
+    // alert("function checkid " + id);
     var goodid = id.search(/^\d{6}$/);
-    //alert("goodid " + goodid);
+    // alert("goodid " + goodid);
     if (goodid == 0) return true;
     else {
         msg += "NCHA ID # " + id + " is invaild\n\n";
@@ -96,9 +139,9 @@ function chkid(id){
 }
 
 function chkemail(email){
-    //alert("function chkemail " + email);
+    // alert("function chkemail " + email);
     var goodemail = email.search(/^[a-z.-_]{3,}@\w{3,}\.[a-z]{3}$/i);
-    //alert("goodemail " + goodemail);
+    // alert("goodemail " + goodemail);
     if (goodemail == 0) return true;
     else {
         msg += "The email address " + email + " is not valid\n\n";
@@ -107,9 +150,9 @@ function chkemail(email){
 }
 
 function chkccnum(ccnum){
-    //alert("function ccnum " + ccnum);
+    // alert("function ccnum " + ccnum);
     var goodccnum = ccnum.search(/^\d{16}$/);
-    //alert("goodccnum " + goodccnum);
+    // alert("goodccnum " + goodccnum);
     if (goodccnum == 0) return true;
     else {
         msg += "Credit card # " + ccnum + " is invalid\n\n";
@@ -117,98 +160,79 @@ function chkccnum(ccnum){
     }
 }
 
-function chkclass(thisclass){
+function chkclass(class1, class2,class3,class4,class5,class6){
     var count = 0;
-    var i;
-    for (i=0; i<thisclass.length; i++){
-        if (thisclass[i].checked) count += 1;
+    if (class1) {
+        count++;
+        money += 300;
+        goodmsgclass += "\tOpen\n";
     }
-    //alert("class checks " + count);
+    if (class2) {
+        count++;
+        money += 300;
+        goodmsgclass += "\tNon-Pro\n";
+    }
+    if (class3) {
+        count++;
+        money += 250;
+        goodmsgclass += "\t25K NNP\n";
+    }
+    if (class4) {
+        count++;
+        money += 250;
+        goodmsgclass += "\t50K Amateur\n";
+    }
+    if (class5) {
+        count++;
+        money += 150;
+        goodmsgclass += "\t35K NP\n";
+    }
+    if (class6) {
+        count++;
+        money += 150;
+        goodmsgclass += "\t15K Amateur\n";
+    }
+
+    // alert("class checks " + count);
+
     if (count == 0) {
         msg += "There were no classes selected\n\n";
+        money = 0;
         return false;
     }
     if (count > 3) {
         msg += "Too many classes were selected\n\n";
+        money = 0;
         return false;
     }
     return true;
 }
 
-function addclass(thisclass){
-    var i;
-    var addto = 0;
-    for (i = 0; i<thisclass.length; i++){
-        //alert("addclass switch " + thisclass[i].value);
-        if (thisclass[i].checked){
-            switch(thisclass[i].value){
-                case "open":
-                    goodmsgclass += "\t- Open\n";
-                    addto += 300;
-                    break;
-                case "nonpro":
-                    goodmsgclass += "\t- Non-Pro\n";
-                    addto += 300;
-                    break;
-                case "25knnp":
-                    goodmsgclass += "\t- 25K NNP\n";
-                    addto += 250;
-                    break;
-                case "50kam":
-                    goodmsgclass += "\t- 50K Amateur\n";
-                    addto += 250;
-                    break;
-                case "35knp":
-                    goodmsgclass += "\t- 35K NP\n";
-                    addto += 150;
-                    break;
-                case "15kam":
-                    goodmsgclass += "\t- 15K Amateur\n";
-                    addto += 150;
-                    break;
-            }
-        }
-    }
-    //alert("addclass money = " + addto);
-    return addto;
-}
-
 function getdate(thisdate){
-    return thisdate.options[thisdate.selectedIndex].text;
+    return document.forms["reg"][5].options[thisdate].text;
 }
 
 function chkccdate(ccm, ccy){
     var d = new Date();
     var year = d.getFullYear();
-    var month = d.getMonth()+1;
-    var cmonth = ccm.options[ccm.selectedIndex].value;
-    var cyear = ccy.options[ccy.selectedIndex].value;
+    var month = d.getMonth();
+    var cyear = document.forms["reg"][19].options[ccy].text;
 
-    //alert(year + " " + month + " " + cyear + " " + cmonth + "\n");
+    // alert(year + " " + month + " " + cyear + " " + ccm + "\n");
 
-    if (cmonth < month && cyear == year) return false;
+    if (ccm < month && cyear == year) {
+        msg += "Credit card date is invalid.\n";
+        return false;
+    }
 
     return true;
 
 }
 
-function chkcardtype(cctype){
-    var typecount = 0;
-    var i;
-    for (i=0; i<cctype.length; i++){
-        if (cctype[i].checked) typecount++;
-    }
-
-    //alert(typecount);
-
-    if (typecount == 0) {
+function chkcardtype(cv, cm, cd){
+    if (cv || cm || cd) return true;
+    else {
         msg += "Credit card type was not selected\n\n";
         return false;
     }
-    return true;
-}
-
-function loadItems(){
-
-
 }
