@@ -8,7 +8,7 @@ function validate() {
     // alert("function validate");
     var reg = document.forms[0];
     var valid = true;
-    formItems["fname"] = reg["0"].value;
+    formItems["fname"] = reg[0].value;
     formItems["lname"] = reg[1].value;
     formItems["idnum"] = reg[2].value;
     formItems["phone"] = reg[3].value;
