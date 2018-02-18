@@ -6,7 +6,7 @@ var formItems = {fname:"", lname:"", idnum:"", phone:"", email:"", date:0, class
 
 function validate() {
     // alert("function validate");
-    var reg = document.forms["reg"];
+    var reg = document.forms[0];
     var valid = true;
     formItems["fname"] = reg["0"].value;
     formItems["lname"] = reg[1].value;
