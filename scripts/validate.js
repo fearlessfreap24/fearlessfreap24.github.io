@@ -277,14 +277,14 @@ function chkclass(class1, class2,class3,class4,class5,class6){
 }
 
 function getdate(thisdate){
-    return document.forms["reg"][5].options[thisdate].text;
+    return document.forms[0][5].options[thisdate].text;
 }
 
 function chkccdate(ccm, ccy){
     var d = new Date();
     var year = d.getFullYear();
     var month = d.getMonth();
-    var cyear = document.forms["reg"][19].options[ccy].text;
+    var cyear = document.forms[0][19].options[ccy].text;
 
     // alert(year + " " + month + " " + cyear + " " + ccm + "\n");
 
